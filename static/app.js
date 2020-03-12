@@ -1,4 +1,4 @@
-// Creating function for Data plotting (Bar, gauge, bubble)
+// Creating function for Data plotting (Bar, bubble)
 function getPlot(id) {
   // getting data from the json file
   d3.json("data/samples.json").then((data)=> {
@@ -7,7 +7,7 @@ function getPlot(id) {
     var wfreq = data.metadata.map(d => d.wfreq)
     console.log(`Washing Freq: ${wfreq}`)
         
-      // filter sample values by id 
+    // filter sample values by id 
     var samples = data.samples.filter(s => s.id.toString() === id)[0];
         
     console.log(samples);
@@ -24,10 +24,8 @@ function getPlot(id) {
   
     // get the top 10 labels for the plot
     var labels = samples.otu_labels.slice(0, 10);
-  
-    //   console.log(`Sample Values: ${samplevalues}`)
-    //   console.log(`Id Values: ${OTU_top}`)
-    // create trace variable for the plot
+
+    // Create trace variable for the bar plot
     var trace = {
         x: samplevalues,
         y: OTU_id,
@@ -59,7 +57,7 @@ function getPlot(id) {
     Plotly.newPlot("bar", data, layout);
 
 
-    // The bubble chart
+    // Create The bubble chart
     var trace1 = {
         x: samples.otu_ids,
         y: samples.sample_values,
@@ -90,6 +88,7 @@ function getPlot(id) {
   })
 };
 
+// Create Gauge Chart
 function buildGauge(id) {
   d3.json("data/samples.json").then((data)=> {
     console.log(data)
@@ -152,7 +151,7 @@ function buildGauge(id) {
       showlegend: true
     }
   ]
-
+ // set the layout for the gauge chart
   var layout_g = {
     shapes: [
       {
@@ -181,7 +180,7 @@ function buildGauge(id) {
     }
   }
   
-  
+    // Plot Gauge Chart
     Plotly.newPlot("gauge", data_g, layout_g);
   })
 };
